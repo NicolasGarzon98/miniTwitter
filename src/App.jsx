@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { API } from 'aws-amplify';
+import { api } from 'aws-amplify';
 
 function App() {
   const [message, setMessage] = useState('');
@@ -11,14 +11,14 @@ function App() {
 
   async function fetchMessages() {
     // Llama a la función Lambda para obtener los mensajes
-    const response = await API.get('myapi', '/messages');
+    const response = await api.get('myapi', '/messages');
     setMessages(response);
   }
 
   async function handleSubmit(event) {
     event.preventDefault();
     // Llama a la función Lambda para guardar el mensaje
-    await API.post('myapi', '/messages', { body: { message } });
+    await api.post('myapi', '/messages', { body: { message } });
     setMessage('');
     fetchMessages();
   }
